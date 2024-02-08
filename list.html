@@ -7,7 +7,22 @@
   <title>Bootstrap demo</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <style>
+      .badge[data-status="Dead"] {
+        color: #fff!important;
+        background-color: RGBA(var(--bs-danger-rgb),var(--bs-bg-opacity, 1))!important;
+      }
+      .badge[data-status="Alive"] {
+        color: #fff!important;
+        background-color: RGBA(var(--bs-success-rgb),var(--bs-bg-opacity, 1))!important;
+      }
+      .badge[data-status="unknown"] {
+        color: #fff!important;
+        background-color: RGBA(var(--bs-secondary-rgb),var(--bs-bg-opacity, 1))!important;
+      }
+    </style>
 </head>
+
 <body>
   <div class="container">
     <div class="row justify-content-center my-5">
@@ -18,22 +33,50 @@
         </div>
       </div>
     </div>
-    <div class="row justify-content-center my-5">
-      <div class="col-4">
-        <ol class="list-group" id="my-list">
-        </ol>
-      </div>
+    <div class="row justify-content-center my-5" id="my-list">
     </div>
   </div>
   <template id="list-template">
-    <li class="list-group-item d-flex justify-content-between align-items-start">
-      <div class="ms-2 me-auto">
-        <div class="fw-bold" data-id="title"></div>
-        <span data-id="content"></span>
+    <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12" data-bs-toggle="modal" data-bs-target="#exampleModal">
+      <div class="card">
+        <img src="" class="card-img-top" data-id="img" alt="">
+        <div class="card-body">
+          <h5 class="card-title" data-id="title">Card title</h5>
+          <p class="card-text" data-id="content">Some quick example text to build on the card title and make up the bulk
+            of the card's content.</p>
+          <a href="#" class="btn btn-primary">Go somewhere</a>
+        </div>
       </div>
-      <span class="badge bg-primary rounded-pill" data-id="number">14</span>
-    </li>
+    </div>
   </template>
+
+  <!-- Modal -->
+  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="exampleModalLabel" data-title>Modal title</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <div class="card">
+            <img src="" class="card-img-top" data-img alt="">
+            <div class="card-body">
+              <p class="card-text">
+                <span class="badge rounded-pill" data-status></span>
+                <p class="font-monospace" data-species></p>
+                <p class="font-monospace" data-episode></p>
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary">Save changes</button>
+        </div>
+      </div>
+    </div>
+  </div>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
     integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
     crossorigin="anonymous"></script>
