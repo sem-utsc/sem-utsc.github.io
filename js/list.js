@@ -1,4 +1,12 @@
 document.addEventListener("DOMContentLoaded", () => {
+    document.getElementById("button-search").addEventListener("click", async e => {
+        var inputSearch = document.getElementById("input-search");
+        const response = await fetch(`https://rickandmortyapi.com/api/character/?name=${inputSearch.value}`);
+        const characterList = await response.json();
+        var itemList = document.getElementById("my-list");
+        itemList.replaceChildren();
+        createList(characterList);
+    })
     document.querySelector("#exampleModal").addEventListener('show.bs.modal', async event => {
         // Button that triggered the modal
         console.log(event);
@@ -25,21 +33,25 @@ document.addEventListener("DOMContentLoaded", () => {
             return response.json();
         }).then((response) => {
             console.log(response);
-            var itemList = document.getElementById("my-list");
-            var template = document.getElementById("list-template");
-            response.results.forEach(element => {
-                var clone = template.content.cloneNode(true);
-                clone.querySelector(".col-xs-12").setAttribute("data-detail", element.id);
-                clone.querySelector("[data-id='title']").textContent = element.name;
-                clone.querySelector("[data-id='content']").textContent = element.species;
-                clone.querySelector("[data-id='img']").src = element.image;
-                itemList.appendChild(clone);
-            });
+            createList(response);
         });
     });
     document.querySelector(".btn.btn-light").addEventListener("click", event => {
         var itemList = document.getElementById("my-list");
         itemList.replaceChildren();
     });
-    
+
+    function createList(response) {
+        var itemList = document.getElementById("my-list");
+        var template = document.getElementById("list-template");
+        response.results.forEach(element => {
+            var clone = template.content.cloneNode(true);
+            clone.querySelector(".col-xs-12").setAttribute("data-detail", element.id);
+            clone.querySelector("[data-id='title']").textContent = element.name;
+            clone.querySelector("[data-id='content']").textContent = element.species;
+            clone.querySelector("[data-id='img']").src = element.image;
+            itemList.appendChild(clone);
+        });
+    }
+
 });
